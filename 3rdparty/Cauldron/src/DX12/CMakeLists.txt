@@ -141,8 +141,7 @@ add_library (${PROJECT_NAME} STATIC ${GLTF_src} ${PostProc_src} ${Base_src} ${Wi
 
 target_link_libraries (${PROJECT_NAME} Cauldron_Common NJSON D3D12X)
 target_include_directories (${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-set_target_properties(${PROJECT_NAME} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "stdafx.h")
-cotire(${PROJECT_NAME})
+
 
 source_group("GLTF"            FILES ${GLTF_src})
 source_group("PostProc"        FILES ${PostProc_src})

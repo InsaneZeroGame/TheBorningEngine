@@ -1,8 +1,10 @@
 #include "../include/stdafx.h"
 #include <TbeWindow.h>
 
-TBE::BaseWindow::BaseWindow(LPCSTR name):FrameworkWindows(name)
+TBE::BaseWindow::BaseWindow(LPCSTR name, uint32_t width, uint32_t height) :FrameworkWindows(name)
 {
+	m_Width = width;
+	m_Height = height;
 }
 
 TBE::BaseWindow::~BaseWindow()
@@ -11,6 +13,8 @@ TBE::BaseWindow::~BaseWindow()
 
 void TBE::BaseWindow::OnParseCommandLine(LPSTR lpCmdLine, uint32_t* pWidth, uint32_t* pHeight, bool* pbFullScreen)
 {
+	*pWidth = m_Width;
+	*pHeight = m_Height;
 }
 
 void TBE::BaseWindow::OnCreate(HWND hWnd)

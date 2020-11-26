@@ -6,7 +6,7 @@ namespace TBE
 	class BaseWindow : public FrameworkWindows
 	{
 	public:
-		BaseWindow(LPCSTR name);
+		BaseWindow(LPCSTR name, uint32_t width, uint32_t height);
 		~BaseWindow();
 
 	private:
@@ -22,7 +22,10 @@ namespace TBE
 	};
 
 	int App(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow) {
-		RunFramework(hInstance, lpCmdLine, nCmdShow, new BaseWindow("The Borning Game"));
+		BaseWindow* l_newWindows = new BaseWindow("The Borning Game", 800, 600);
+		RunFramework(hInstance, lpCmdLine, nCmdShow, l_newWindows);
+		delete l_newWindows;
+		return 0;
 	}
 }
 
