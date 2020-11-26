@@ -1,5 +1,5 @@
 #pragma once
-#include <Cauldron/src/common/Misc/FrameworkWindows.h>
+#include "../common/Misc/FrameworkWindows.h"
 
 namespace TBE
 {
@@ -21,8 +21,8 @@ namespace TBE
 		virtual void SetFullScreen(bool fullscreen) override;
 	};
 
-	int App(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow) {
-		BaseWindow* l_newWindows = new BaseWindow("The Borning Game", 800, 600);
+	int App(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow,uint32_t p_width,uint32_t p_height) {
+		BaseWindow* l_newWindows = new BaseWindow("The Borning Game", p_width, p_height);
 		RunFramework(hInstance, lpCmdLine, nCmdShow, l_newWindows);
 		delete l_newWindows;
 		return 0;
