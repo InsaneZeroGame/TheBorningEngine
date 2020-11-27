@@ -64,7 +64,7 @@ namespace CAULDRON_DX12
 
     INT32 Texture::Init(Device* pDevice, const char* pDebugName, const CD3DX12_RESOURCE_DESC* pDesc, D3D12_RESOURCE_STATES initialState, const D3D12_CLEAR_VALUE* pClearValue)
     {
-        HRESULT hr = pDevice->GetDevice()->CreateCommittedResource(
+        HRESULT hr = pDevice->GetD3DDevice()->CreateCommittedResource(
             &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
             D3D12_HEAP_FLAG_NONE,
             pDesc,
@@ -144,7 +144,7 @@ namespace CAULDRON_DX12
         m_header.depth = (UINT32)pDesc->Depth();
         m_header.arraySize = (UINT32)pDesc->ArraySize();
 
-        HRESULT hr = pDevice->GetDevice()->CreateCommittedResource(
+        HRESULT hr = pDevice->GetD3DDevice()->CreateCommittedResource(
             &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
             D3D12_HEAP_FLAG_NONE,
             &desc,
@@ -239,7 +239,7 @@ namespace CAULDRON_DX12
         UINT64 row_sizes_in_bytes = {};
         D3D12_PLACED_SUBRESOURCE_FOOTPRINT placedTex2D = {};
         CD3DX12_RESOURCE_DESC RDescs = CD3DX12_RESOURCE_DESC::Tex2D((DXGI_FORMAT)m_header.format, m_header.width, m_header.height, 1, 1);
-        pDevice->GetDevice()->GetCopyableFootprints(&RDescs, 0, 1, 0, &placedTex2D, &num_rows, &row_sizes_in_bytes, &UplHeapSize);
+        pDevice->GetD3DDevice()->GetCopyableFootprints(&RDescs, 0, 1, 0, &placedTex2D, &num_rows, &row_sizes_in_bytes, &UplHeapSize);
 
         //compute pixel size
         //
@@ -446,7 +446,7 @@ namespace CAULDRON_DX12
         //    states |= D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
         states |= D3D12_RESOURCE_STATE_DEPTH_WRITE;
 
-        pDevice->GetDevice()->CreateCommittedResource(
+        pDevice->GetD3DDevice()->CreateCommittedResource(
             &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
             D3D12_HEAP_FLAG_NONE,
             pDesc,
@@ -476,7 +476,7 @@ namespace CAULDRON_DX12
         CD3DX12_RESOURCE_DESC RDescs;
         RDescs = CD3DX12_RESOURCE_DESC::Tex2D((DXGI_FORMAT)m_header.format, m_header.width, m_header.height, m_header.arraySize, m_header.mipMapCount, 1, 0, resourceFlags);
 
-        pDevice->GetDevice()->CreateCommittedResource(
+        pDevice->GetD3DDevice()->CreateCommittedResource(
             &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
             D3D12_HEAP_FLAG_NONE,
             &RDescs,
@@ -497,7 +497,7 @@ namespace CAULDRON_DX12
         UINT64 row_sizes_in_bytes[D3D12_REQ_MIP_LEVELS] = { 0 };
         D3D12_PLACED_SUBRESOURCE_FOOTPRINT placedTex2D[D3D12_REQ_MIP_LEVELS];
         CD3DX12_RESOURCE_DESC RDescs = CD3DX12_RESOURCE_DESC::Tex2D((DXGI_FORMAT)m_header.format, m_header.width, m_header.height, 1, m_header.mipMapCount);
-        pDevice->GetDevice()->GetCopyableFootprints(&RDescs, 0, m_header.mipMapCount, 0, placedTex2D, num_rows, row_sizes_in_bytes, &UplHeapSize);
+        pDevice->GetD3DDevice()->GetCopyableFootprints(&RDescs, 0, m_header.mipMapCount, 0, placedTex2D, num_rows, row_sizes_in_bytes, &UplHeapSize);
 
         //compute pixel size
         //

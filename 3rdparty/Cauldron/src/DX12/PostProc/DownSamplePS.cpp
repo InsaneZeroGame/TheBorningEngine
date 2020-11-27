@@ -117,7 +117,7 @@ namespace CAULDRON_DX12
 
     void DownSamplePS::Draw(ID3D12GraphicsCommandList* pCommandList)
     {
-        UserMarker marker(pCommandList, "DownSamplePS");
+        //UserMarker marker(pCommandList, "DownSamplePS");
 
         // downsample
         //

@@ -38,12 +38,12 @@ namespace CAULDRON_DX12
     void SwapChain::OnCreate(Device *pDevice, uint32_t numberBackBuffers, HWND hWnd)
     {
         m_hWnd = hWnd;
-        m_pDevice = pDevice->GetDevice();
+        m_pDevice = pDevice->GetD3DDevice();
         m_pDirectQueue = pDevice->GetGraphicsQueue();
         m_BackBufferCount = numberBackBuffers;
 
         // Init FS HDR
-        fsHdrInit(pDevice->GetAGSContext(), pDevice->GetAGSGPUInfo(), hWnd);
+        //fsHdrInit(pDevice->GetAGSContext(), pDevice->GetAGSGPUInfo(), hWnd);
 
         // set some safe format to start with
         m_swapChainFormat = fsHdrGetFormat(DISPLAYMODE_SDR);

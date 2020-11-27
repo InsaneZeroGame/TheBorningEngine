@@ -78,7 +78,7 @@ namespace CAULDRON_DX12
     //--------------------------------------------------------------------------------------
     void Sharpen::Draw(ID3D12GraphicsCommandList *pCommandList, CBV_SRV_UAV *pTAABufferSRV)
     {
-        UserMarker marker(pCommandList, "Sharpen");
+        //UserMarker marker(pCommandList, "Sharpen");
 
         m_sharpen.Draw(pCommandList, 1, pTAABufferSRV, 0);
     }

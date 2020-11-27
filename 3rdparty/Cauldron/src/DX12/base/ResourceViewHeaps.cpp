@@ -33,7 +33,7 @@ namespace CAULDRON_DX12
         m_descriptorCount = descriptorCount;
         m_index = 0;
         
-        m_descriptorElementSize = pDevice->GetDevice()->GetDescriptorHandleIncrementSize(heapType);
+        m_descriptorElementSize = pDevice->GetD3DDevice()->GetDescriptorHandleIncrementSize(heapType);
 
         D3D12_DESCRIPTOR_HEAP_DESC descHeap;
         descHeap.NumDescriptors = descriptorCount;
@@ -45,7 +45,7 @@ namespace CAULDRON_DX12
         }
         descHeap.NodeMask = 0;
         ThrowIfFailed(
-            pDevice->GetDevice()->CreateDescriptorHeap(&descHeap, IID_PPV_ARGS(&m_pHeap))
+            pDevice->GetD3DDevice()->CreateDescriptorHeap(&descHeap, IID_PPV_ARGS(&m_pHeap))
         );
         SetName(m_pHeap, "StaticHeapDX12");
     }

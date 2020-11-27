@@ -34,7 +34,7 @@ namespace CAULDRON_DX12
 
         m_mem.OnCreate(numberOfBackBuffers, memTotalSize);
 
-        ThrowIfFailed(pDevice->GetDevice()->CreateCommittedResource(
+        ThrowIfFailed(pDevice->GetD3DDevice()->CreateCommittedResource(
             &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
             D3D12_HEAP_FLAG_NONE,
             &CD3DX12_RESOURCE_DESC::Buffer(memTotalSize),

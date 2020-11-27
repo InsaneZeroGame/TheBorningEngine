@@ -31,7 +31,7 @@
 
 namespace CAULDRON_DX12
 {
-    void Device::OnCreate(const char *pAppName, const char *pEngine, bool bValidationEnabled, bool bGpuValidationEnabled, HWND hWnd)
+    void Device::OnCreate(const char *pAppName = "TheBorningGame", const char *pEngine = "TheBorningEngine", bool bValidationEnabled = true, bool bGpuValidationEnabled = true)
     {
         // Enable the D3D12 debug layer
         //
@@ -68,33 +68,6 @@ namespace CAULDRON_DX12
         const bool bAMDGPU = (AdapterDesc.VendorId == 0x1002);
         pFactory->Release();
         m_pDevice = NULL;
-
-        // Create an AGS Device
-        //
-        if (bAMDGPU)
-        {
-            AGSReturnCode result = agsInit(&m_agsContext, nullptr, &m_agsGPUInfo);
-            if (result == AGS_SUCCESS)
-            {
-                UserMarker::SetAgsContext(m_agsContext);
-
-                AGSDX12DeviceCreationParams creationParams = {};
-                creationParams.pAdapter = m_pAdapter;
-                creationParams.iid = __uuidof(m_pDevice);
-                creationParams.FeatureLevel = D3D_FEATURE_LEVEL_12_0;
-
-                AGSDX12ExtensionParams extensionParams = {};
-                AGSDX12ReturnedParams returnedParams = {};
-
-                // Create AGS Device
-                //
-                AGSReturnCode rc = agsDriverExtensionsDX12_CreateDevice(m_agsContext, &creationParams, &extensionParams, &returnedParams);
-                if (rc == AGS_SUCCESS)
-                {
-                    m_pDevice = returnedParams.pDevice;
-                }
-            }
-        }
 
         // If the AGS device wasn't created then try using a regular device
         //
@@ -153,16 +126,7 @@ namespace CAULDRON_DX12
         m_pComputeQueue->Release();
         m_pDirectQueue->Release();
         m_pAdapter->Release();
-
-        if (m_agsContext)
-        {
-            agsDriverExtensionsDX12_DestroyDevice(m_agsContext, m_pDevice, nullptr);
-            agsDeInit(m_agsContext);
-        }
-        else
-        {
-            m_pDevice->Release();
-        }
+        m_pDevice->Release();
 
 #ifdef _DEBUG
         // Report live objects
@@ -198,5 +162,9 @@ namespace CAULDRON_DX12
     {
         GPUFlush(D3D12_COMMAND_LIST_TYPE_COMPUTE);
         GPUFlush(D3D12_COMMAND_LIST_TYPE_DIRECT);
+    }
+    Device::Device()
+    {
+        OnCreate();
     }
 }

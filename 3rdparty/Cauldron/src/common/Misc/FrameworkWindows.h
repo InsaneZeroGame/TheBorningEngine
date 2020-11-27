@@ -51,4 +51,3 @@ protected:
 };
 
 
-int RunFramework(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, FrameworkWindows *pFramework);

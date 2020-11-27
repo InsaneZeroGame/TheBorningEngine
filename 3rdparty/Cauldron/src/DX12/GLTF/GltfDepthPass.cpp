@@ -276,7 +276,7 @@ namespace CAULDRON_DX12
             }
 
             ThrowIfFailed(
-                m_pDevice->GetDevice()->CreateRootSignature(
+                m_pDevice->GetD3DDevice()->CreateRootSignature(
                     0,
                     pOutBlob->GetBufferPointer(),
                     pOutBlob->GetBufferSize(),
@@ -316,7 +316,7 @@ namespace CAULDRON_DX12
         descPso.SampleDesc.Count = 1;
         descPso.NodeMask = 0;
         ThrowIfFailed(
-            m_pDevice->GetDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&pPrimitive->m_pipelineRender))
+            m_pDevice->GetD3DDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&pPrimitive->m_pipelineRender))
         );
         SetName(pPrimitive->m_pipelineRender, "GltfDepthPass::m_PipelineRender");
     }
@@ -341,7 +341,7 @@ namespace CAULDRON_DX12
     //--------------------------------------------------------------------------------------
     void GltfDepthPass::Draw(ID3D12GraphicsCommandList* pCommandList)
     {
-        UserMarker marker(pCommandList, "DepthPass");
+        //UserMarker marker(pCommandList, "DepthPass");
 
         // Set descriptor heaps
         pCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

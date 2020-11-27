@@ -41,7 +41,7 @@ namespace CAULDRON_DX12
         if (bUseVidMem)
         {
             ThrowIfFailed(
-                pDevice->GetDevice()->CreateCommittedResource(
+                pDevice->GetD3DDevice()->CreateCommittedResource(
                     &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
                     D3D12_HEAP_FLAG_NONE,
                     &CD3DX12_RESOURCE_DESC::Buffer(totalMemSize),
@@ -53,7 +53,7 @@ namespace CAULDRON_DX12
         }
 
         ThrowIfFailed(
-            pDevice->GetDevice()->CreateCommittedResource(
+            pDevice->GetD3DDevice()->CreateCommittedResource(
                 &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
                 D3D12_HEAP_FLAG_NONE,
                 &CD3DX12_RESOURCE_DESC::Buffer(totalMemSize),
@@ -110,7 +110,7 @@ namespace CAULDRON_DX12
 
     bool StaticConstantBufferPool::CreateCBV(uint32_t index, int srvOffset, CBV_SRV_UAV *pCBV)
     {
-        m_pDevice->GetDevice()->CreateConstantBufferView(&m_pCBVDesc[index], pCBV->GetCPU(srvOffset));
+        m_pDevice->GetD3DDevice()->CreateConstantBufferView(&m_pCBVDesc[index], pCBV->GetCPU(srvOffset));
         return true;
     }
 

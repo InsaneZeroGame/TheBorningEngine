@@ -62,7 +62,7 @@ namespace CAULDRON_DX12
             ID3DBlob *pOutBlob, *pErrorBlob = NULL;
             ThrowIfFailed(D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1, &pOutBlob, &pErrorBlob));
             ThrowIfFailed(
-                pDevice->GetDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
+                pDevice->GetD3DDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
             );
             SetName(m_pRootSignature, "TAA");
 
@@ -78,7 +78,7 @@ namespace CAULDRON_DX12
             pipelineStateDesc.pRootSignature = m_pRootSignature;
             pipelineStateDesc.CS = shaderByteCode;
 
-            pDevice->GetDevice()->CreateComputePipelineState(&pipelineStateDesc, IID_PPV_ARGS(&m_pPipelineState));
+            pDevice->GetD3DDevice()->CreateComputePipelineState(&pipelineStateDesc, IID_PPV_ARGS(&m_pPipelineState));
             SetName(m_pPipelineState, "TAA");
         }
     }
@@ -108,7 +108,7 @@ namespace CAULDRON_DX12
     {
         if (m_pPipelineState == NULL)
             return;
-        UserMarker marker(pCommandList, "TAA");
+        //UserMarker marker(pCommandList, "TAA");
 
         // Bind the descriptor heaps and root signature
         //

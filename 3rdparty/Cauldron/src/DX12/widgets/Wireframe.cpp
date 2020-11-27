@@ -116,7 +116,7 @@ namespace CAULDRON_DX12
             }
 
             ThrowIfFailed(
-                pDevice->GetDevice()->CreateRootSignature(
+                pDevice->GetD3DDevice()->CreateRootSignature(
                     0, // node
                     pOutBlob->GetBufferPointer(),
                     pOutBlob->GetBufferSize(),
@@ -151,7 +151,7 @@ namespace CAULDRON_DX12
         descPso.SampleDesc.Count = sampleDescCount;
         descPso.NodeMask = 0;
         ThrowIfFailed(
-            pDevice->GetDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline))
+            pDevice->GetD3DDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline))
         );
         SetName(m_pPipeline, "Wireframe::m_pPipeline");
     }

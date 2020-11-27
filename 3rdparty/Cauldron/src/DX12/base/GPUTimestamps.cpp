@@ -31,10 +31,10 @@ namespace CAULDRON_DX12
         queryHeapDesc.Count = MaxValuesPerFrame * numberOfBackBuffers;
         queryHeapDesc.Type = D3D12_QUERY_HEAP_TYPE_TIMESTAMP;
         queryHeapDesc.NodeMask = 0;
-        ThrowIfFailed(pDevice->GetDevice()->CreateQueryHeap(&queryHeapDesc, IID_PPV_ARGS(&m_pQueryHeap)));
+        ThrowIfFailed(pDevice->GetD3DDevice()->CreateQueryHeap(&queryHeapDesc, IID_PPV_ARGS(&m_pQueryHeap)));
 
         ThrowIfFailed(
-            pDevice->GetDevice()->CreateCommittedResource(
+            pDevice->GetD3DDevice()->CreateCommittedResource(
                 &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK),
                 D3D12_HEAP_FLAG_NONE,
                 &CD3DX12_RESOURCE_DESC::Buffer(sizeof(uint64_t) * numberOfBackBuffers * MaxValuesPerFrame),

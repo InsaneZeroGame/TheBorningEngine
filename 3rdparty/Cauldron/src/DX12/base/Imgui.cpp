@@ -53,7 +53,7 @@ namespace CAULDRON_DX12
         //
         CD3DX12_RESOURCE_DESC RDescs = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, width, height, 1, 1);
         {
-            m_pDevice->GetDevice()->CreateCommittedResource(
+            m_pDevice->GetD3DDevice()->CreateCommittedResource(
                 &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
                 D3D12_HEAP_FLAG_NONE,
                 &RDescs,
@@ -67,7 +67,7 @@ namespace CAULDRON_DX12
         //
         {
             m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_pTextureSRV);
-            pDevice->GetDevice()->CreateShaderResourceView(m_pTexture2D, nullptr, m_pTextureSRV.GetCPU());
+            pDevice->GetD3DDevice()->CreateShaderResourceView(m_pTexture2D, nullptr, m_pTextureSRV.GetCPU());
         }
 
         // Tell ImGUI what the image view is
@@ -80,7 +80,7 @@ namespace CAULDRON_DX12
         D3D12_PLACED_SUBRESOURCE_FOOTPRINT placedTex2D[1] = { 0 };
         uint32_t num_rows[1] = { 0 };
         UINT64 row_sizes_in_bytes[1] = { 0 };
-        m_pDevice->GetDevice()->GetCopyableFootprints(&RDescs, 0, 1, 0, placedTex2D, num_rows, row_sizes_in_bytes, &UplHeapSize);
+        m_pDevice->GetD3DDevice()->GetCopyableFootprints(&RDescs, 0, 1, 0, placedTex2D, num_rows, row_sizes_in_bytes, &UplHeapSize);
 
         UINT8* ptr = pUploadHeap->Suballocate(SIZE_T(UplHeapSize), D3D12_TEXTURE_DATA_PLACEMENT_ALIGNMENT);
         placedTex2D[0].Offset += UINT64(ptr - pUploadHeap->BasePtr());
@@ -227,7 +227,7 @@ namespace CAULDRON_DX12
                 | D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS;
 
             HRESULT hr = D3D12SerializeRootSignature(&descRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &pOutBlob, &pErrorBlob);
-            m_pDevice->GetDevice()->CreateRootSignature(
+            m_pDevice->GetD3DDevice()->CreateRootSignature(
                 0,
                 pOutBlob->GetBufferPointer(),
                 pOutBlob->GetBufferSize(),
@@ -290,7 +290,7 @@ namespace CAULDRON_DX12
         descPso.DSVFormat = DXGI_FORMAT_D32_FLOAT;
         descPso.SampleDesc.Count = 1;
         descPso.NodeMask = 0;
-        m_pDevice->GetDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&m_pPipelineState));
+        m_pDevice->GetD3DDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&m_pPipelineState));
         SetName(m_pPipelineState, "ImGUI::m_pPipelineState");
     }
 
@@ -330,7 +330,7 @@ namespace CAULDRON_DX12
     //--------------------------------------------------------------------------------------
     void ImGUI::Draw(ID3D12GraphicsCommandList *pCommandList)
     {
-        UserMarker marker(pCommandList, "ImGUI");
+        //UserMarker marker(pCommandList, "ImGUI");
 
         ImGui::Render();
 

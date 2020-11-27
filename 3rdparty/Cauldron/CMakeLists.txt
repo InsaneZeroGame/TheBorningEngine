@@ -19,7 +19,6 @@ add_subdirectory(libs/ImGUI)
 add_subdirectory(libs/stb)
 add_subdirectory(libs/DXC)
 add_subdirectory(libs/d3d12x)
-add_subdirectory(libs/ags)    
 add_subdirectory(src/DX12)   
 
 

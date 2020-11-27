@@ -113,7 +113,7 @@ namespace CAULDRON_DX12
             ID3DBlob *pOutBlob, *pErrorBlob = NULL;
             ThrowIfFailed(D3D12SerializeRootSignature(&descRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &pOutBlob, &pErrorBlob));
             ThrowIfFailed(
-                pDevice->GetDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
+                pDevice->GetD3DDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
             );
             SetName(m_pRootSignature, std::string("PostProcPS::") + shaderFilename);
 
@@ -169,7 +169,7 @@ namespace CAULDRON_DX12
         descPso.SampleDesc.Count = psoSampleDescCount;
         descPso.NodeMask = 0;
         ThrowIfFailed(
-            m_pDevice->GetDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline))
+            m_pDevice->GetD3DDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline))
         );
         SetName(m_pPipeline, "PostProcPS::m_pPipeline");
     }

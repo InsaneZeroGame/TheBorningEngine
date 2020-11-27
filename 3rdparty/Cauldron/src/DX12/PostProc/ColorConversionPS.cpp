@@ -59,31 +59,11 @@ namespace CAULDRON_DX12
         m_ColorConversion.UpdatePipeline(outFormat);
 
         m_colorConversionConsts.m_displayMode = displayMode;
-
-        if (displayMode != DISPLAYMODE_SDR)
-        {
-            const AGSDisplayInfo *agsDisplayInfo = fsHdrGetDisplayInfo();
-
-            m_colorConversionConsts.m_displayMinLuminancePerNits = (float)agsDisplayInfo->minLuminance / 80.0f; // RGB(1, 1, 1) maps to 80 nits in scRGB;
-            m_colorConversionConsts.m_displayMaxLuminancePerNits = (float)agsDisplayInfo->maxLuminance / 80.0f; // This means peak white equals RGB(m_maxLuminanace/80.0f, m_maxLuminanace/80.0f, m_maxLuminanace/80.0f) in scRGB;
-
-            FillDisplaySpecificPrimaries(
-                (float)agsDisplayInfo->chromaticityWhitePointX, (float)agsDisplayInfo->chromaticityWhitePointY,
-                (float)agsDisplayInfo->chromaticityRedX, (float)agsDisplayInfo->chromaticityRedY,
-                (float)agsDisplayInfo->chromaticityGreenX, (float)agsDisplayInfo->chromaticityGreenY,
-                (float)agsDisplayInfo->chromaticityBlueX, (float)agsDisplayInfo->chromaticityBlueY
-            );
-
-            SetupGamutMapperMatrices(
-                ColorSpace_REC709,
-                ColorSpace_Display,
-                &m_colorConversionConsts.m_contentToMonitorRecMatrix);
-        }
     }
 
     void ColorConversionPS::Draw(ID3D12GraphicsCommandList* pCommandList, CBV_SRV_UAV *pHDRSRV)
     {
-        UserMarker marker(pCommandList, "ColorConversionPS");
+        //UserMarker marker(pCommandList, "ColorConversionPS");
 
         D3D12_GPU_VIRTUAL_ADDRESS cbTonemappingHandle;
         ColorConversionConsts *pColorConversionConsts;

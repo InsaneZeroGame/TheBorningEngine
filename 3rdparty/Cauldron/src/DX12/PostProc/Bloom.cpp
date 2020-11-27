@@ -21,7 +21,6 @@
 #include "Base/Device.h"
 #include "Base/DynamicBufferRing.h"
 #include "Base/StaticBufferPool.h"
-#include "Base/UserMarkers.h"
 #include "Base/UploadHeap.h"
 #include "Base/Texture.h"
 #include "Base/Helper.h"
@@ -150,7 +149,7 @@ namespace CAULDRON_DX12
 
     void Bloom::Draw(ID3D12GraphicsCommandList* pCommandList, Texture *pInput)
     {
-        UserMarker marker(pCommandList, "Bloom");
+        //UserMarker marker(pCommandList, "Bloom");
 
         //float weights[6] = { 0.25, 0.75, 1.5, 2, 2.5, 3.0 };
 

@@ -87,8 +87,6 @@ set(Base_src
     base/UploadHeapSimple.h
     base/UploadHeap.cpp
     base/UploadHeap.h
-    base/UserMarkers.h
-    base/UserMarkers.cpp
 )
 
 set(Widgets_src

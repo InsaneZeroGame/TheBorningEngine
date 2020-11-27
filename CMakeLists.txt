@@ -5,7 +5,6 @@ set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake")
 include(cotire)
 
 add_subdirectory(3rdparty)
-include_directories(3rdparty)
 include_directories(include)
 
 file(GLOB_RECURSE source_files include/*.h src/*.cpp)

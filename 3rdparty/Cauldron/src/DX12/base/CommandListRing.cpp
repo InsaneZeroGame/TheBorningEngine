@@ -45,7 +45,7 @@ namespace CAULDRON_DX12
 
             // Create allocator
             //
-            ThrowIfFailed(pDevice->GetDevice()->CreateCommandAllocator(queueDesc.Type, IID_PPV_ARGS(&pCBPF->m_pCommandAllocator)));
+            ThrowIfFailed(pDevice->GetD3DDevice()->CreateCommandAllocator(queueDesc.Type, IID_PPV_ARGS(&pCBPF->m_pCommandAllocator)));
             SetName(pCBPF->m_pCommandAllocator, format("CommandAllocator %u", a));
 
             // Create command buffers
@@ -53,7 +53,7 @@ namespace CAULDRON_DX12
             pCBPF->m_ppCommandLists = new ID3D12GraphicsCommandList2*[m_commandListsPerBackBuffer];
             for (uint32_t i = 0; i < m_commandListsPerBackBuffer; i++)
             {
-                ThrowIfFailed(pDevice->GetDevice()->CreateCommandList(0, queueDesc.Type, pCBPF->m_pCommandAllocator, nullptr, IID_PPV_ARGS(&pCBPF->m_ppCommandLists[i])));
+                ThrowIfFailed(pDevice->GetD3DDevice()->CreateCommandList(0, queueDesc.Type, pCBPF->m_pCommandAllocator, nullptr, IID_PPV_ARGS(&pCBPF->m_ppCommandLists[i])));
                 pCBPF->m_ppCommandLists[i]->Close();
                 SetName(pCBPF->m_ppCommandLists[i], format("CommandList %u, Allocator %u", i, a));
             }

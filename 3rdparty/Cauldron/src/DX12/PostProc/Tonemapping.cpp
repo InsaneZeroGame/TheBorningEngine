@@ -59,7 +59,7 @@ namespace CAULDRON_DX12
 
     void ToneMapping::Draw(ID3D12GraphicsCommandList* pCommandList, CBV_SRV_UAV *pHDRSRV, float exposure, int toneMapper)
     {
-        UserMarker marker(pCommandList, "Tonemapping");
+        //UserMarker marker(pCommandList, "Tonemapping");
 
         D3D12_GPU_VIRTUAL_ADDRESS cbTonemappingHandle;
         ToneMappingConsts *pToneMapping;

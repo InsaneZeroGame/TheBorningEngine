@@ -124,7 +124,7 @@ namespace CAULDRON_DX12
             ID3DBlob *pOutBlob, *pErrorBlob = NULL;
             ThrowIfFailed(D3D12SerializeRootSignature(&descRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &pOutBlob, &pErrorBlob));
             ThrowIfFailed(
-                m_pDevice->GetDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
+                m_pDevice->GetD3DDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
             );
             SetName(m_pRootSignature, std::string("PostProcCS::m_pRootSignature::") + params.shaderFilename);
 
@@ -140,7 +140,7 @@ namespace CAULDRON_DX12
             descPso.pRootSignature = m_pRootSignature;
             descPso.NodeMask = 0;
 
-            ThrowIfFailed(m_pDevice->GetDevice()->CreateComputePipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline)));
+            ThrowIfFailed(m_pDevice->GetD3DDevice()->CreateComputePipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline)));
             SetName(m_pRootSignature, std::string("PostProcCS::m_pPipeline::") + params.shaderFilename);
         }
     }

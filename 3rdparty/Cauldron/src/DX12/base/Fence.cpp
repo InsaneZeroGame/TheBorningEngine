@@ -37,7 +37,7 @@ namespace CAULDRON_DX12
     void Fence::OnCreate(Device *pDevice, const char* pDebugName)
     {
         m_fenceCounter = 0;
-        ThrowIfFailed(pDevice->GetDevice()->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_pFence)));
+        ThrowIfFailed(pDevice->GetD3DDevice()->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_pFence)));
         SetName(m_pFence, pDebugName);
     }
 

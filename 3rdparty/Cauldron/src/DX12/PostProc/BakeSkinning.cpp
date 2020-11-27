@@ -90,7 +90,7 @@ namespace CAULDRON_DX12
             ID3DBlob *pOutBlob, *pErrorBlob = NULL;
             ThrowIfFailed(D3D12SerializeRootSignature(&descRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &pOutBlob, &pErrorBlob));
             ThrowIfFailed(
-                pDevice->GetDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
+                pDevice->GetD3DDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
             );
             SetName(m_pRootSignature, "BakeSkinning::m_pRootSignature");
 
@@ -106,7 +106,7 @@ namespace CAULDRON_DX12
             descPso.pRootSignature = m_pRootSignature;
             descPso.NodeMask = 0;
 
-            pDevice->GetDevice()->CreateComputePipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline));
+            pDevice->GetD3DDevice()->CreateComputePipelineState(&descPso, IID_PPV_ARGS(&m_pPipeline));
             SetName(m_pPipeline, "BakeSkinning::m_pPipeline");
         }
     }

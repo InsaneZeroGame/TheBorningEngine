@@ -78,7 +78,7 @@ namespace CAULDRON_DX12
     //--------------------------------------------------------------------------------------
     void Debug::Draw(ID3D12GraphicsCommandList *pCommandList, CBV_SRV_UAV *pDebugBufferSRV)
     {
-        UserMarker marker(pCommandList, "Debug");
+        //UserMarker marker(pCommandList, "Debug");
 
         m_debug.Draw(pCommandList, 1, pDebugBufferSRV, 0);
     }

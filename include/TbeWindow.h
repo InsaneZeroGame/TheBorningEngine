@@ -1,5 +1,6 @@
 #pragma once
 #include "../common/Misc/FrameworkWindows.h"
+#include "TbeRenderer.h"
 
 namespace TBE
 {
@@ -8,6 +9,7 @@ namespace TBE
 	public:
 		BaseWindow(LPCSTR name, uint32_t width, uint32_t height);
 		~BaseWindow();
+		__forceinline void SetRenderer(Renderer* p_renderer) { m_renderer = p_renderer; }
 
 	private:
 
@@ -19,13 +21,12 @@ namespace TBE
 		virtual bool OnEvent(MSG msg) override;
 		virtual void OnResize(uint32_t Width, uint32_t Height) override;
 		virtual void SetFullScreen(bool fullscreen) override;
+
+	protected:
+		Renderer* m_renderer;
 	};
 
-	static int App(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, uint32_t p_width, uint32_t p_height) {
-		BaseWindow* l_newWindows = new BaseWindow("The Borning Game", p_width, p_height);
-		RunFramework(hInstance, lpCmdLine, nCmdShow, l_newWindows);
-		return 0;
-	}
+	
 }
 
 

@@ -27,6 +27,8 @@ void TBE::BaseWindow::OnDestroy()
 
 void TBE::BaseWindow::OnRender()
 {
+	if (!m_renderer) assert(0 && "No Renderer Set!");
+	m_renderer->Update();
 }
 
 bool TBE::BaseWindow::OnEvent(MSG msg)

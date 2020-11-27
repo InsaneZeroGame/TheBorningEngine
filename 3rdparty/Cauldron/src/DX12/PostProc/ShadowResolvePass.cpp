@@ -76,7 +76,7 @@ namespace CAULDRON_DX12
             ID3DBlob *pOutBlob, *pErrorBlob = NULL;
             ThrowIfFailed(D3D12SerializeRootSignature(&root_signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &pOutBlob, &pErrorBlob));
             ThrowIfFailed(
-                pDevice->GetDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
+                pDevice->GetD3DDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&m_pRootSignature))
             );
             SetName(m_pRootSignature, "ShadowResolvePass::m_pRootSignature");
 
@@ -94,7 +94,7 @@ namespace CAULDRON_DX12
             pipeline_state_desc.pRootSignature = m_pRootSignature;
             pipeline_state_desc.NodeMask = 0;
 
-            pDevice->GetDevice()->CreateComputePipelineState(&pipeline_state_desc, IID_PPV_ARGS(&m_pPipelineState));
+            pDevice->GetD3DDevice()->CreateComputePipelineState(&pipeline_state_desc, IID_PPV_ARGS(&m_pPipelineState));
             SetName(m_pPipelineState, "ShadowResolvePass::m_pPipelineState");
         }
     }
@@ -126,7 +126,7 @@ namespace CAULDRON_DX12
     //--------------------------------------------------------------------------------------
     void ShadowResolvePass::Draw(ID3D12GraphicsCommandList *pCommandList, GLTFTexturesAndBuffers *pGLTFTexturesAndBuffers, ShadowResolveFrame *pShadowResolveFrame)
     {
-        UserMarker marker(pCommandList, "ShadowResolvePass");
+        //UserMarker marker(pCommandList, "ShadowResolvePass");
 
         // Bind the descriptor heaps and root signature
         //

@@ -376,7 +376,7 @@ namespace CAULDRON_DX12
 
         ID3DBlob *pOutBlob, *pErrorBlob = NULL;
         ThrowIfFailed(D3D12SerializeRootSignature(&descRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &pOutBlob, &pErrorBlob));
-        ThrowIfFailed(m_pDevice->GetDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&pPrimitive->m_RootSignature)));
+        ThrowIfFailed(m_pDevice->GetD3DDevice()->CreateRootSignature(0, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(), IID_PPV_ARGS(&pPrimitive->m_RootSignature)));
         SetName(pPrimitive->m_RootSignature, "GltfPbr::m_RootSignature");
 
         pOutBlob->Release();
@@ -434,7 +434,7 @@ namespace CAULDRON_DX12
         descPso.NodeMask = 0;
 
         ThrowIfFailed(
-            m_pDevice->GetDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&pPrimitive->m_PipelineRender))
+            m_pDevice->GetD3DDevice()->CreateGraphicsPipelineState(&descPso, IID_PPV_ARGS(&pPrimitive->m_PipelineRender))
         );
         SetName(pPrimitive->m_PipelineRender, "GltfPbrPass::m_PipelineRender");
     }
@@ -521,7 +521,7 @@ namespace CAULDRON_DX12
     //--------------------------------------------------------------------------------------
     void GltfPbrPass::Draw(ID3D12GraphicsCommandList *pCommandList, CBV_SRV_UAV *pShadowBufferSRV)
     {
-        UserMarker marker(pCommandList, "gltfPBR");
+        ////UserMarker marker(pCommandList, "gltfPBR");
 
         // If we are not doing lighting (for example in a deferred pass) then set shadow SRV to NULL (it wont be in the descriptors)
         //
@@ -543,7 +543,7 @@ namespace CAULDRON_DX12
         // draw solid primitives
         //        
         {
-            UserMarker marker(pCommandList, "Solids");
+            ////UserMarker marker(pCommandList, "Solids");
             //std::sort(solid.begin(), solid.end(), [](const BatchList & a, const BatchList & b) -> bool { return a.m_pPrimitive->m_PipelineRender > b.m_pPrimitive->m_PipelineRender; });
             for (auto &t : solid)
             {
@@ -554,7 +554,7 @@ namespace CAULDRON_DX12
         // Sort transparent primitives and draw them
         //
         {
-            UserMarker marker(pCommandList, "Transparent");
+            ////UserMarker marker(pCommandList, "Transparent");
             std::sort(transparent.begin(), transparent.end());
             for (auto &t : transparent)
             {
