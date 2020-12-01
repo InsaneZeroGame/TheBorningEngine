@@ -1,8 +1,27 @@
 #include "stdafx.h"
 #include "..\include\TbeApplication.h"
 
-TBE::Application::Application()
+TBE::Application::Application(uint32_t p_width, uint32_t p_height)
 {
+    m_window = new BaseWindow("The Borning Game", p_width, p_height);
+    m_renderer = new TbeD3DRenderer();
+    m_renderer->SetTargetWindow(m_window);
+}
+
+void TBE::Application::OnParseCommandLine(LPSTR lpCmdLine, uint32_t* pWidth, uint32_t* pHeight, bool* pbFullScreen)
+{
+    *pWidth = m_window->GetWidth();
+    *pHeight = m_window->GetHeight();
+}
+
+void TBE::Application::SetNativeWindow(HWND hWnd)
+{
+    m_window->OnCreate(hWnd);
+}
+
+void TBE::Application::StartUpModules()
+{
+    m_renderer->OnInit();
 }
 
 TBE::Application::~Application()
@@ -24,10 +43,10 @@ namespace TBE {
     LONG lBorderedStyle = 0;
     LONG lBorderlessStyle = 0;
 
-    int RunApp(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, FrameworkWindows* pFramework)
+    int RunApp(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, Application* p_app)
     {
         // create new DX sample
-        dxSample = pFramework;
+        dxSample = p_app->GetWindow();
 
         HWND hWnd;
         WNDCLASSEX windowClass;
@@ -44,7 +63,7 @@ namespace TBE {
 
         uint32_t Width;
         uint32_t Height;
-        pFramework->OnParseCommandLine(lpCmdLine, &Width, &Height, &bIsFullScreen);
+        p_app->OnParseCommandLine(lpCmdLine, &Width, &Height, &bIsFullScreen);
 
         RECT windowRect = { 0, 0, (LONG)Width, (LONG)Height };
         AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);    // adjust the size
@@ -66,8 +85,10 @@ namespace TBE {
             hInstance,    // application handle
             NULL);    // used with multiple windows, NULL
 
-        if (dxSample)
-            dxSample->OnCreate(hWnd);
+        if (p_app)
+            p_app->SetNativeWindow(hWnd);
+
+        p_app->StartUpModules();
 
         // show the window
         ShowWindow(hWnd, nCmdShow);
@@ -91,9 +112,9 @@ namespace TBE {
             }
             else
             {
-                if (dxSample && bIsMinimized == false)
+                if (p_app && bIsMinimized == false)
                 {
-                    dxSample->OnRender();
+                    p_app->GetRenderer()->OnUpdate();
                 }
             }
         }

@@ -33,10 +33,8 @@ public:
     virtual void OnActivate(bool windowActive) {}
 
     // Pure virtual functions
-    virtual void OnParseCommandLine(LPSTR lpCmdLine, uint32_t* pWidth, uint32_t* pHeight, bool *pbFullScreen) = 0;
     virtual void OnCreate(HWND hWnd) = 0;
     virtual void OnDestroy() = 0;
-    virtual void OnRender() = 0;
     virtual bool OnEvent(MSG msg) = 0;
     virtual void OnResize(uint32_t Width, uint32_t Height) = 0;
     virtual void SetFullScreen(bool fullscreen) = 0;
