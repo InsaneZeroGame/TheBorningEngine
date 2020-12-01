@@ -1,10 +1,13 @@
 #include "../include/stdafx.h"
 #include <TbeWindow.h>
 
-TBE::BaseWindow::BaseWindow(LPCSTR name, uint32_t width, uint32_t height) :FrameworkWindows(name)
+TBE::BaseWindow::BaseWindow(LPCSTR name, uint32_t width, uint32_t height) :
+	FrameworkWindows(name),
+	m_swapchain(new SwapChain)
 {
 	m_Width = width;
 	m_Height = height;
+
 }
 
 TBE::BaseWindow::~BaseWindow()
@@ -19,10 +22,16 @@ void TBE::BaseWindow::OnParseCommandLine(LPSTR lpCmdLine, uint32_t* pWidth, uint
 
 void TBE::BaseWindow::OnCreate(HWND hWnd)
 {
+	m_hwnd = hWnd;
+	m_swapchain->OnCreate(&Device::GetDevice(), BACKBUFFER_COUNT, m_hwnd);
 }
 
 void TBE::BaseWindow::OnDestroy()
 {
+	if (m_swapchain)
+	{
+		delete m_swapchain;
+	}
 }
 
 void TBE::BaseWindow::OnRender()

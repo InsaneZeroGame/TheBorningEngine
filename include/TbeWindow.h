@@ -1,9 +1,13 @@
 #pragma once
 #include "../common/Misc/FrameworkWindows.h"
+#include "../DX12/base/SwapChain.h"
 #include "TbeRenderer.h"
+
 
 namespace TBE
 {
+	using namespace CAULDRON_DX12;
+
 	class BaseWindow : public FrameworkWindows
 	{
 	public:
@@ -23,7 +27,13 @@ namespace TBE
 		virtual void SetFullScreen(bool fullscreen) override;
 
 	protected:
-		Renderer* m_renderer;
+		Renderer* m_renderer = nullptr;
+
+		SwapChain* m_swapchain = nullptr;
+
+		HWND m_hwnd = nullptr;
+
+		enum {BACKBUFFER_COUNT = 3};
 	};
 
 	
