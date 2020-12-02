@@ -111,7 +111,7 @@ namespace CAULDRON_DX12
                             // allocate descriptor table for the texture
                             tfmat->m_textureCount = 1;
                             tfmat->m_pTransparency = new CBV_SRV_UAV();
-                            pHeaps->AllocCBV_SRV_UAVDescriptor(tfmat->m_textureCount, tfmat->m_pTransparency);
+                            //pHeaps->AllocCBV_SRV_UAVDescriptor(tfmat->m_textureCount, tfmat->m_pTransparency);
                             Texture *pTexture = pGLTFTexturesAndBuffers->GetTextureViewByID(id);
                             pTexture->CreateSRV(0, tfmat->m_pTransparency);
                             tfmat->m_defines["ID_baseColorTexture"] = "0";

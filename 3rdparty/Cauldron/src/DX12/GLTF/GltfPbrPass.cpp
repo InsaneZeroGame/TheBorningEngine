@@ -202,7 +202,7 @@ namespace CAULDRON_DX12
                 }
 
                 // allocate descriptor table for the textures
-                m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(tfmat->m_textureCount, &tfmat->m_texturesTable);
+                //m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(tfmat->m_textureCount, &tfmat->m_texturesTable);
             }
 
 

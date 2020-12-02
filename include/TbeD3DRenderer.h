@@ -5,6 +5,13 @@
 #include "TbeRenderer.h"
 #include "../DX12/base/Device.h"
 #include "../DX12/base/SwapChain.h"
+#include "../DX12/base/CommandListRing.h"
+#include "../DX12/base/DynamicBufferRing.h"
+#include "../DX12/base/ResourceViewHeaps.h"
+#include "../DX12/base/StaticBufferPool.h"
+#include "../DX12/base/UploadHeap.h"
+
+
 
 using namespace CAULDRON_DX12;
 
@@ -26,11 +33,19 @@ namespace TBE
 		void InitFrameDependentResource() override;
 
 	private:
-		ID3D12Device* m_device;
-
+		Device* m_device;
 		SwapChain* m_swapchain = nullptr;
+		UploadHeap                      m_UploadHeap;
+		DynamicBufferRing               m_ConstantBufferRing;
+		StaticBufferPool                m_VidMemBufferPool;
+		CommandListRing                 m_CommandListRing;
 
-		enum { BACKBUFFER_COUNT = 3 };
+		const bool  USE_VID_MEM = true;
+		enum { 
+			BACKBUFFER_COUNT = 3 ,
+			commandListsPerBackBuffer = 1,
+
+		};
 
 	};
 }

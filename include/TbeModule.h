@@ -2,7 +2,21 @@
 
 namespace TBE
 {
-	class Module
+	class NoCopy
+	{
+	public:
+		NoCopy() {};
+		virtual ~NoCopy() {};
+		NoCopy(const NoCopy&) = delete;
+		NoCopy(const NoCopy&&) = delete;
+		NoCopy& operator=(const NoCopy&) = delete;
+
+	private:
+
+	};
+
+
+	class Module : NoCopy
 	{
 	public:
 		Module() {};

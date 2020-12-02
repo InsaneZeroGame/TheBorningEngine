@@ -43,5 +43,6 @@ using namespace DirectX;
 #include "../3rdparty/Cauldron/src/common/Misc/Error.h"
 #include "../3rdparty/Cauldron/src/DX12/base/Helper.h"
 #include "../3rdparty/Cauldron/src/common/Misc/Misc.h"
+#include "TbeModule.h"
 
 // TODO: reference additional headers your program requires here

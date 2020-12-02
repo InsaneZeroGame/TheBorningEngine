@@ -137,7 +137,7 @@ namespace CAULDRON_DX12
                 // allocate descriptor table for the texture
                 tfmat->m_textureCount = static_cast<int>(textures.size());
                 tfmat->m_pTextureTable = new CBV_SRV_UAV();
-                pHeaps->AllocCBV_SRV_UAVDescriptor(tfmat->m_textureCount, tfmat->m_pTextureTable);
+                //pHeaps->AllocCBV_SRV_UAVDescriptor(tfmat->m_textureCount, tfmat->m_pTextureTable);
                 for (int i = 0; i < textures.size();i++)
                 {
                     textures[i]->CreateSRV(i, tfmat->m_pTextureTable);

@@ -66,7 +66,7 @@ namespace CAULDRON_DX12
         // Create the Image View
         //
         {
-            m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_pTextureSRV);
+            //m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_pTextureSRV);
             pDevice->GetD3DDevice()->CreateShaderResourceView(m_pTexture2D, nullptr, m_pTextureSRV.GetCPU());
         }
 

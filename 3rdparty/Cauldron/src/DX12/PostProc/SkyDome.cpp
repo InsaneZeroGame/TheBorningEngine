@@ -35,7 +35,7 @@ namespace CAULDRON_DX12
         pUploadHeap->FlushAndFinish();
 
         D3D12_STATIC_SAMPLER_DESC SamplerDesc = {};
-        pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_CubeSpecularTextureSRV);
+        //pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_CubeSpecularTextureSRV);
         SetDescriptorSpec(0, &m_CubeSpecularTextureSRV, 0, &SamplerDesc);
 
         D3D12_DEPTH_STENCIL_DESC DepthStencilDesc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);

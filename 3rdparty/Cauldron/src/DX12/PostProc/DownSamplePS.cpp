@@ -69,8 +69,8 @@ namespace CAULDRON_DX12
         //
         for (int i = 0; i < DOWNSAMPLEPS_MAX_MIP_LEVELS; i++)
         {
-            m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_mip[i].m_SRV);
-            m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_mip[i].m_RTV);
+            //m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_mip[i].m_SRV);
+            //m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_mip[i].m_RTV);
         }
 
     }

@@ -128,43 +128,42 @@ namespace CAULDRON_DX12
     };
 
     // This class will hold descriptor heaps for all the types of resources. We are going to need them all anyway.
-    class ResourceViewHeaps
+    class ResourceViewHeaps 
     {
     public:
-        void OnCreate(Device *pDevice, uint32_t cbvDescriptorCount, uint32_t srvDescriptorCount, uint32_t uavDescriptorCount, uint32_t dsvDescriptorCount, uint32_t rtvDescriptorCount, uint32_t samplerDescriptorCount)
+        static ResourceViewHeaps& GetViewHeaps()
         {
-            m_DSV_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_DSV, dsvDescriptorCount);
-            m_RTV_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_RTV, rtvDescriptorCount);
-            m_Sampler_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER, samplerDescriptorCount);
-            m_CBV_SRV_UAV_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, cbvDescriptorCount + srvDescriptorCount + uavDescriptorCount);
+            static ResourceViewHeaps l_heaps;
+            return l_heaps;
+        }
+        
+        ResourceView* AllocCBV_SRV_UAVDescriptor(uint32_t size)
+        {
+            ResourceView* pRV;
+            m_CBV_SRV_UAV_Heap.AllocDescriptor(size, pRV);
+            return pRV;
         }
 
-        void OnDestroy()
+        ResourceView* AllocDSVDescriptor(uint32_t size)
         {
-            m_DSV_Heap.OnDestroy();
-            m_RTV_Heap.OnDestroy();
-            m_Sampler_Heap.OnDestroy();
-            m_CBV_SRV_UAV_Heap.OnDestroy();
+            ResourceView* pRV;
+            m_DSV_Heap.AllocDescriptor(size, pRV);
+            return pRV;
+
         }
 
-        bool AllocCBV_SRV_UAVDescriptor(uint32_t size, CBV_SRV_UAV *pRV)
+        ResourceView* AllocRTVDescriptor(uint32_t size)
         {
-            return m_CBV_SRV_UAV_Heap.AllocDescriptor(size, pRV);
+            ResourceView* pRV;
+            m_RTV_Heap.AllocDescriptor(size, pRV);
+            return pRV;
         }
 
-        bool AllocDSVDescriptor(uint32_t size, DSV *pRV)
+        ResourceView* AllocSamplerDescriptor(uint32_t size)
         {
-            return m_DSV_Heap.AllocDescriptor(size, pRV);
-        }
-
-        bool AllocRTVDescriptor(uint32_t size, RTV *pRV)
-        {
-            return m_RTV_Heap.AllocDescriptor(size, pRV);
-        }
-
-        bool AllocSamplerDescriptor(uint32_t size, SAMPLER *pRV)
-        {
-            return m_Sampler_Heap.AllocDescriptor(size, pRV);
+            ResourceView* pRV;
+            m_Sampler_Heap.AllocDescriptor(size, pRV);
+            return pRV;
         }
 
         ID3D12DescriptorHeap* GetDSVHeap() { return m_DSV_Heap.GetHeap(); }
@@ -173,6 +172,33 @@ namespace CAULDRON_DX12
         ID3D12DescriptorHeap* GetCBV_SRV_UAVHeap() { return m_CBV_SRV_UAV_Heap.GetHeap(); }
 
     private:
+        ResourceViewHeaps()
+        {
+            Device* pDevice = &Device::GetDevice().GetDevice();
+            m_DSV_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_DSV, dsvDescriptorCount);
+            m_RTV_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_RTV, rtvDescriptorCount);
+            m_Sampler_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER, samplerDescriptorCount);
+            m_CBV_SRV_UAV_Heap.OnCreate(pDevice, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, cbvDescriptorCount + srvDescriptorCount + uavDescriptorCount);
+
+        };
+        ~ResourceViewHeaps()
+        {
+            m_DSV_Heap.OnDestroy();
+            m_RTV_Heap.OnDestroy();
+            m_Sampler_Heap.OnDestroy();
+            m_CBV_SRV_UAV_Heap.OnDestroy();
+        };
+
+        enum {
+            cbvDescriptorCount = 2000,
+            srvDescriptorCount = 2000,
+            uavDescriptorCount = 10,
+            dsvDescriptorCount = 3,
+            rtvDescriptorCount = 60,
+            samplerDescriptorCount = 20,
+
+        };
+
         StaticResourceViewHeap m_DSV_Heap;
         StaticResourceViewHeap m_RTV_Heap;
         StaticResourceViewHeap m_Sampler_Heap;

@@ -81,14 +81,14 @@ namespace CAULDRON_DX12
         //
         for (int i = 0; i < BLOOM_MAX_MIP_LEVELS; i++)
         {
-            m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_mip[i].m_SRV);
-            m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_mip[i].m_RTV);
+            //m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_mip[i].m_SRV);
+            //m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_mip[i].m_RTV);
         }
 
         // Allocate descriptors for the output pass
         //
-        m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_output.m_SRV);
-        m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_output.m_RTV);
+        //m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_output.m_SRV);
+        //m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_output.m_RTV);
 
         m_doBlur = true;
         m_doUpscale = true;

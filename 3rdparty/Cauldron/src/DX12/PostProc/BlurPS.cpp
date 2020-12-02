@@ -96,13 +96,13 @@ namespace CAULDRON_DX12
         {
             // Horizontal pass
             //
-            m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_horizontalMip[i].m_SRV);
-            m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_horizontalMip[i].m_RTV);
+            //m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_horizontalMip[i].m_SRV);
+            //m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_horizontalMip[i].m_RTV);
 
             // Vertical pass
             //
-            m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_verticalMip[i].m_SRV);
-            m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_verticalMip[i].m_RTV);
+            //m_pResourceViewHeaps->AllocCBV_SRV_UAVDescriptor(1, &m_verticalMip[i].m_SRV);
+           // m_pResourceViewHeaps->AllocRTVDescriptor(1, &m_verticalMip[i].m_RTV);
         }
 
         /*
