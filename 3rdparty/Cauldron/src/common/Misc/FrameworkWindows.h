@@ -27,8 +27,8 @@ public:
     virtual ~FrameworkWindows() {}
 
     LPCSTR GetName() { return m_Name; }
-    uint32_t GetWidth() { return m_Width; }
-    uint32_t GetHeight() { return m_Height; }
+    uint32_t GetWidth() const { return m_Width; }
+    uint32_t GetHeight() const { return m_Height; }
 
     virtual void OnActivate(bool windowActive) {}
 

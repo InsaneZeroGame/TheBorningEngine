@@ -34,6 +34,7 @@ namespace TBE
 
 	private:
 		Device* m_device;
+		ID3D12Device* m_d3dDevice;
 		SwapChain* m_swapchain = nullptr;
 		UploadHeap                      m_UploadHeap;
 		DynamicBufferRing               m_ConstantBufferRing;
@@ -44,8 +45,12 @@ namespace TBE
 		enum { 
 			BACKBUFFER_COUNT = 3 ,
 			commandListsPerBackBuffer = 1,
-
 		};
-
+		ID3D12CommandAllocator* l_clAllocator = nullptr;
+		ID3D12GraphicsCommandList* l_cl = nullptr;
+		ID3D12Fence* m_frameFence;
+		HANDLE m_frameEvent;
+		uint64_t m_cpuFrameIndex;
+		uint64_t m_gpuFrameIndex;
 	};
 }

@@ -167,7 +167,7 @@ namespace CAULDRON_DX12
     {
         if (m_bVSyncOn)
         {
-            ThrowIfFailed(m_pSwapChain->Present(1, 0));
+            ThrowIfFailed(m_pSwapChain->Present(0, 0));
         }
         else
         {
