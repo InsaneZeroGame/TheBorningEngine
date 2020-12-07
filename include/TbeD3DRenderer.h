@@ -10,6 +10,8 @@
 #include "../DX12/base/ResourceViewHeaps.h"
 #include "../DX12/base/StaticBufferPool.h"
 #include "../DX12/base/UploadHeap.h"
+#include "TbeD3DResource.h"
+#include "TbeD3DPepelineState.h"
 
 
 
@@ -32,6 +34,10 @@ namespace TBE
 
 		void InitFrameDependentResource() override;
 
+		void InitPipelineStates() override;
+
+		void InitShaders() override;
+
 	private:
 		Device* m_device;
 		ID3D12Device* m_d3dDevice;
@@ -52,5 +58,34 @@ namespace TBE
 		HANDLE m_frameEvent;
 		uint64_t m_cpuFrameIndex;
 		uint64_t m_gpuFrameIndex;
+
+		struct Vertex
+		{
+			float pos[4];
+		};
+
+
+		struct RendererResource
+		{
+			TbeD3DStaticBuffer* m_staticBuffer;
+			TbeD3DDynamicUploadBuffer* m_uploadBuffer;
+		}m_rendererResource;
+
+		struct SceneResource
+		{
+		
+		}m_sceneResource;
+
+		struct FrameResource
+		{
+		
+		}m_frameResource;
+
+		struct Shader
+		{
+			ID3DBlob* m_defaultShdaderVS;
+			ID3DBlob* m_defaultShdaderPS;
+
+		}m_shaders;
 	};
 }

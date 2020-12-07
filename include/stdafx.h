@@ -44,5 +44,8 @@ using namespace DirectX;
 #include "../3rdparty/Cauldron/src/DX12/base/Helper.h"
 #include "../3rdparty/Cauldron/src/common/Misc/Misc.h"
 #include "TbeModule.h"
+#include "../3rdparty/Cauldron/src/DX12/base/Device.h"
 #include <vector>
+#include "d3dx12.h"
+
 // TODO: reference additional headers your program requires here

@@ -12,7 +12,8 @@ namespace TBE
 		virtual void InitGpuResource() {};
 		virtual void InitFrameDependentResource() {};
 		virtual void SetTargetWindow(const BaseWindow* p_window);
-	
+		virtual void InitPipelineStates() {};
+		virtual void InitShaders() {};
 		// Inherited via Module
 		virtual void OnInit() override;
 		virtual void OnUpdate() override;
