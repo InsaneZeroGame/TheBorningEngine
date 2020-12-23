@@ -81,7 +81,7 @@ namespace CAULDRON_DX12
         // if SDR, convert add gamma for the swapchain format so blending is correct
         if (m_displayMode == DISPLAYMODE_SDR)
         {
-            m_swapChainFormat = ConvertIntoGammaFormat(m_swapChainFormat);
+            //m_swapChainFormat = ConvertIntoGammaFormat(m_swapChainFormat);
         }
 
         //

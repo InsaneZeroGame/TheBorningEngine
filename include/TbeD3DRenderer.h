@@ -38,6 +38,7 @@ namespace TBE
 
 		void InitShaders() override;
 
+		void InitRootSignature();
 	private:
 		Device* m_device;
 		ID3D12Device* m_d3dDevice;
@@ -87,5 +88,8 @@ namespace TBE
 			ID3DBlob* m_defaultShdaderPS;
 
 		}m_shaders;
+
+		TbeD3DGraphicsPipelineState m_pipelineState;
+		ID3D12RootSignature* m_nullRS;
 	};
 }

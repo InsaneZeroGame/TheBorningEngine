@@ -23,13 +23,13 @@ namespace TBE
     };
 
 
-    class GraphicsPSO : public PSO
+    class TbeD3DGraphicsPipelineState : public PSO
     {
 
     public:
 
         // Start with empty state
-        GraphicsPSO();
+        TbeD3DGraphicsPipelineState();
 
         void SetBlendState(const D3D12_BLEND_DESC& BlendDesc);
         void SetRasterizerState(const D3D12_RASTERIZER_DESC& RasterizerDesc);
@@ -54,8 +54,17 @@ namespace TBE
         void SetHullShader(const D3D12_SHADER_BYTECODE& Binary) { m_PSODesc.HS = Binary; }
         void SetDomainShader(const D3D12_SHADER_BYTECODE& Binary) { m_PSODesc.DS = Binary; }
 
+
+        void SetVertexShader(ID3DBlob* Binary) { m_PSODesc.VS = CD3DX12_SHADER_BYTECODE(Binary); }
+        void SetPixelShader(ID3DBlob* Binary) { m_PSODesc.PS = CD3DX12_SHADER_BYTECODE(Binary); }
+        void SetGeometryShader(ID3DBlob* Binary) { m_PSODesc.GS = CD3DX12_SHADER_BYTECODE(Binary); }
+        void SetHullShader(ID3DBlob* Binary) { m_PSODesc.HS = CD3DX12_SHADER_BYTECODE(Binary); }
+        void SetDomainShader(ID3DBlob* Binary) { m_PSODesc.DS = CD3DX12_SHADER_BYTECODE(Binary); }
+
         // Perform validation and compute a hash value for fast state block comparisons
         void Finalize();
+
+        D3D12_GRAPHICS_PIPELINE_STATE_DESC& GetDesc() { return m_PSODesc; }
 
     private:
 
@@ -63,7 +72,7 @@ namespace TBE
         std::vector<D3D12_INPUT_ELEMENT_DESC> m_InputLayouts;
     };
 
-    extern GraphicsPSO DefaultGraphicsPSO;
+    extern TbeD3DGraphicsPipelineState DefaultGraphicsPSO;
 
     extern void InitBuiltInPSOs();
 }
